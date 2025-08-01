@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discharge Analysis | Floei</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary: #f3567b;
+            --primary-light: #fbb5cd;
+            --soft-white: #FFF9FB;
+            --text: #5A3D4D;
+            --light-bg: #FFE5EB;
+            --alert: #ff6b6b;
+            --normal: #51cf66;
+            --warning: #fcc419;
+        }
+         .analyzing-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .analyzing-content {
+    text-align: center;
+  }
+  
+  .spinner {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  
+  .spinner div {
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary);
+    border-radius: 100%;
+    display: inline-block;
+    animation: bounce 1.4s infinite ease-in-out both;
+  }
+  
+  .spinner .dot1 {
+    animation-delay: -0.32s;
+  }
+  
+  .spinner .dot2 {
+    animation-delay: -0.16s;
+  }
+  
+  @keyframes bounce {
+    0%, 80%, 100% { 
+      transform: scale(0);
+    } 40% { 
+      transform: scale(1.0);
+    }
+  }
+          .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--primary);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 50px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .toast.show {
+        opacity: 1;
+    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--soft-white);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+
+        .subtitle {
+            color: var(--text);
+            opacity: 0.8;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Examination Form */
+        .exam-form {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(243, 86, 123, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-select, .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #f0f0f0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--soft-white);
+            transition: border-color 0.3s;
+        }
+
+        .form-select:focus, .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+        }
+
+        .auto-populated {
+            background-color: var(--light-bg);
+            border-color: var(--primary-light);
+            position: relative;
+        }
+
+        .auto-populated::after {
+            content: "Auto-calculated";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+
+        .color-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .color-option.selected {
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .color-option .tooltip {
+            visibility: hidden;
+            width: 120px;
+            background-color: var(--text);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+
+        .color-option:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Cycle Day Helper */
+        .cycle-day-helper {
+            background-color: var(--light-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .helper-toggle {
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .helper-content {
+            display: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--primary-light);
+        }
+
+        .helper-content.show {
+            display: block;
+        }
+
+        /* Analysis Results */
+        .analysis-result {
+            display: none;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(243, 86, 123, 0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .result-status {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .status-normal {
+            background-color: var(--normal);
+        }
+
+        .status-warning {
+            background-color: var(--warning);
+        }
+
+        .status-alert {
+            background-color: var(--alert);
+        }
+
+        .save-section {
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+        .save-section .btn {
+    width: 250px; /* Set equal fixed width */
+    margin: 0 5px; /* Small margin between */
+}
+
+        /* Saved Observations */
+        .saved-observations {
+            margin-top: 40px;
+        }
+
+        .observation-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(243, 86, 123, 0.1);
+            border-left: 4px solid var(--primary-light);
+            transition: transform 0.3s;
+        }
+
+        .observation-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .observation-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .observation-date {
+            color: var(--primary);
+        }
+
+        .observation-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .detail-item i {
+            color: var(--primary);
+        }
+
+        .insight-card {
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .insight-normal {
+            border-left: 3px solid var(--normal);
+        }
+
+        .insight-warning {
+            border-left: 3px solid var(--warning);
+        }
+
+        .insight-alert {
+            border-left: 3px solid var(--alert);
+        }
+
+        .insight-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            
+        }
+
+        .btn-primary:hover {
+            background: #e04a6d;
+            box-shadow: 0 3px 10px rgba(243, 86, 123, 0.3);
+            
+        }
+
+        .btn-secondary {
+            background: var(--soft-white);
+            color: var(--primary);
+            border: 1px solid var(--primary-light);
+    
+        }
+
+        .btn-secondary:hover {
+            background: #f5e5ea;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Color options */
+        .color-1 { background: #FFF9FB; } /* Egg white */
+        .color-2 { background: #FFF5E6; } /* Creamy */
+        .color-3 { background: #F0E6FF; } /* Milky white */
+        .color-4 { background: #FFE5E5; } /* Pinkish */
+        .color-5 { background: #FFDBDB; } /* Light red */
+        .color-6 { background: #E6FFE6; } /* Greenish */
+        .color-7 { background: #E6F7FF; } /* Blueish */
+        .color-8 { background: #F5F5F5; } /* Grayish */
+        .color-9 { background: #FFEBCD; } /* Yellowish */
+        .color-10 { background: #E6E6FA; } /* Lavender */
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+            }
+        }
+        .backBtn{
+background-color: #e04a6d; border: none; padding: 7px 16px; border-radius: 10px; color: white; display: flex; justify-content: center;align-items: center;
+        }
+        .backBtn:hover{
+            background-color: var(--alert);
+            scale: 1.04;
+        }
+    </style>
+</head>
+<body>
+    <div class="toast" id="toast">Observation Saved!</div>
+    <div class="container">
+        <div class="header">
+            <button onclick="location.href='index.html'" class="backBtn" id="backBtn"><i class="fa-solid fa-arrow-left"></i>Back</button>
+            <img style="margin-bottom: -20px;" src="assets/logo/logoMainPink-Photoroom.png" alt="Floei" class="logo">
+            <h1>Discharge Analysis</h1>
+            <p class="subtitle">Track and understand your cervical mucus patterns</p>
+        </div>
+
+        <div class="exam-form">
+            <h2>Examine Your Discharge</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Cycle Day</label>
+                <input type="number" class="form-input" id="cycleDay" min="1" max="45" placeholder="Enter your current cycle day">
+                <div class="cycle-day-helper">
+                    <div class="helper-toggle" onclick="toggleHelper()">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Not sure about your cycle day?</span>
+                        <i class="fas fa-chevron-down" id="helperIcon"></i>
+                    </div>
+                    <div class="helper-content" id="helperContent">
+                        <p><strong>Cycle day 1</strong> is the first day of your period (first day of bleeding). Count each day after that until your next period begins.</p>
+                        <p>For example:</p>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li>Day 1: First day of bleeding</li>
+                            <li>Day 5: Bleeding stops</li>
+                            <li>Day 14: Approximate ovulation for 28-day cycle</li>
+                            <li>Day 28: Next period begins (cycle resets to day 1)</li>
+                        </ul>
+                        <p style="margin-top: 10px;">If you're not tracking, estimate based on where you are in your cycle.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Consistency</label>
+                <select class="form-select" id="consistency">
+                    <option value="">Select consistency</option>
+                    <option value="dry">Dry/None</option>
+                    <option value="sticky">Sticky</option>
+                    <option value="creamy">Creamy</option>
+                    <option value="watery">Watery</option>
+                    <option value="eggwhite">Egg white</option>
+                    <option value="clumpy">Clumpy</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Color</label>
+                <div class="color-options">
+                    <div class="color-option color-1" data-color="clear" onclick="selectColor(this)">
+                        <span class="tooltip">Clear/Stretchy</span>
+                    </div>
+                    <div class="color-option color-2" data-color="creamy" onclick="selectColor(this)">
+                        <span class="tooltip">Creamy</span>
+                    </div>
+                    <div class="color-option color-3" data-color="milky" onclick="selectColor(this)">
+                        <span class="tooltip">Milky white</span>
+                    </div>
+                    <div class="color-option color-4" data-color="pinkish" onclick="selectColor(this)">
+                        <span class="tooltip">Pinkish</span>
+                    </div>
+                    <div class="color-option color-5" data-color="light-red" onclick="selectColor(this)">
+                        <span class="tooltip">Light red</span>
+                    </div>
+                    <div class="color-option color-6" data-color="greenish" onclick="selectColor(this)">
+                        <span class="tooltip">Greenish</span>
+                    </div>
+                    <div class="color-option color-7" data-color="blueish" onclick="selectColor(this)">
+                        <span class="tooltip">Blueish</span>
+                    </div>
+                    <div class="color-option color-8" data-color="grayish" onclick="selectColor(this)">
+                        <span class="tooltip">Grayish</span>
+                    </div>
+                    <div class="color-option color-9" data-color="yellowish" onclick="selectColor(this)">
+                        <span class="tooltip">Yellowish</span>
+                    </div>
+                    <div class="color-option color-10" data-color="lavender" onclick="selectColor(this)">
+                        <span class="tooltip">Lavender</span>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedColor">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Odor</label>
+                <select class="form-select" id="odor">
+                    <option value="">Select odor</option>
+                    <option value="none">No noticeable odor</option>
+                    <option value="mild">Mild/musky</option>
+                    <option value="strong">Strong/unpleasant</option>
+                    <option value="fishy">Fishy</option>
+                    <option value="yeasty">Yeasty/bread-like</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Additional Notes</label>
+                <textarea class="form-input form-textarea" id="notes" rows="3" placeholder="Any other observations (itchiness, amount, etc.)"></textarea>
+            </div>
+            
+            <button class="btn btn-primary" onclick="analyzeDischarge()">Analyze</button>
+        </div>
+<div class="analyzing-animation" id="analyzingAnimation" style="display: none;">
+  <div class="analyzing-content">
+    <div class="spinner">
+      <div class="dot1"></div>
+      <div class="dot2"></div>
+      <div class="dot3"></div>
+    </div>
+    <p>Analyzing your data...</p>
+  </div>
+</div>
+        <div class="analysis-result" id="analysisResult">
+            <div class="result-header">
+                <div class="result-status" id="resultStatus">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h3 id="resultTitle">Analysis Result</h3>
+            </div>
+            <p id="resultMessage">Your analysis results will appear here.</p>
+            
+            <div class="save-section" id="saveSection">
+                <p>Would you like to save this observation?</p>
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; justify-content: center;align-items: center; margin:5px ;">
+                <button class="btn btn-primary" onclick="saveObservation()">Save Observation</button>
+                <button class="btn btn-secondary" onclick="clearForm()">Start New</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="saved-observations" id="savedObservations">
+            <h2><i class="fas fa-history"></i> Saved Observations</h2>
+            <p id="noObservations">No saved observations yet. Analyze and save your first observation above.</p>
+            <!-- Observation cards will be inserted here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentAnalysis = null;
+        const MAX_OBSERVATIONS = 30;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // First try to calculate current cycle day automatically
+            const autoCycleDay = calculateCurrentCycleDay();
+            if (autoCycleDay) {
+                document.getElementById('cycleDay').value = autoCycleDay;
+                document.getElementById('cycleDay').classList.add('auto-populated');
+            }
+            // Fallback to last used cycle day if auto-calculation fails
+            else {
+                const lastCycleDay = localStorage.getItem('lastCycleDay');
+                if (lastCycleDay) {
+                    document.getElementById('cycleDay').value = lastCycleDay;
+                }
+            }
+            
+            // Add event listener to cycle day field
+            document.getElementById('cycleDay').addEventListener('focus', function() {
+                this.classList.remove('auto-populated');
+            });
+            
+            loadObservations();
+        });
+
+        // Calculate current cycle day based on period logs
+        function calculateCurrentCycleDay() {
+            const profile = JSON.parse(localStorage.getItem('userProfile')) || { cycleLength: 28 };
+            const logs = JSON.parse(localStorage.getItem('periodLogs')) || [];
+            
+            if (!logs.length) return null;
+            
+            const lastPeriod = logs[logs.length - 1];
+            const startDate = new Date(lastPeriod.startDate);
+            const endDate = new Date(lastPeriod.endDate);
+            const today = new Date();
+            
+            // Reset time components for accurate day comparison
+            startDate.setHours(0, 0, 0, 0);
+            endDate.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+            
+            // Case 1: Currently menstruating
+            if (today >= startDate && today <= endDate) {
+                return Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            }
+            
+            // Case 2: After period ended
+            if (today > endDate) {
+                const cycleDay = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                // Don't return days beyond typical cycle length
+                return cycleDay <= profile.cycleLength ? cycleDay : null;
+            }
+            
+            return null;
+        }
+
+        // Toggle cycle day helper
+        function toggleHelper() {
+            const content = document.getElementById('helperContent');
+            const icon = document.getElementById('helperIcon');
+            content.classList.toggle('show');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+
+        // Select color function
+        function selectColor(element) {
+            document.querySelectorAll('.color-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            document.getElementById('selectedColor').value = element.getAttribute('data-color');
+        }
+
+        // Analyze discharge function
+        function analyzeDischarge() {
+            // Get form values
+            let cycleDay = document.getElementById('cycleDay').value;
+            
+            // If empty but we have logs, try to calculate
+            if (!cycleDay && localStorage.getItem('periodLogs')) {
+                const calculatedDay = calculateCurrentCycleDay();
+                if (calculatedDay) {
+                    cycleDay = calculatedDay;
+                    document.getElementById('cycleDay').value = cycleDay;
+                }
+            }
+            
+            const consistency = document.getElementById('consistency').value;
+            const color = document.getElementById('selectedColor').value;
+            const odor = document.getElementById('odor').value;
+            const notes = document.getElementById('notes').value;
+
+            // Validate inputs
+            if (!cycleDay || !consistency || !color || !odor) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+
+            // Save last cycle day used
+            localStorage.setItem('lastCycleDay', cycleDay);
+
+            // Create analysis object
+            currentAnalysis = {
+                date: new Date().toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }),
+                cycleDay: cycleDay,
+                consistency: consistency,
+                color: color,
+                odor: odor,
+                notes: notes
+            };
+
+            // Analyze the discharge
+            const analysis = getDischargeAnalysis(currentAnalysis);
+
+            // Display results
+            const resultElement = document.getElementById('analysisResult');
+            resultElement.style.display = 'block';
+            document.getElementById('resultTitle').textContent = analysis.title;
+            document.getElementById('resultMessage').textContent = analysis.message;
+            
+            // Set status icon
+            const statusIcon = document.getElementById('resultStatus');
+            statusIcon.className = 'result-status';
+            statusIcon.innerHTML = '';
+            
+            if (analysis.status === 'normal') {
+                statusIcon.classList.add('status-normal');
+                statusIcon.innerHTML = '<i class="fas fa-check"></i>';
+            } else if (analysis.status === 'warning') {
+                statusIcon.classList.add('status-warning');
+                statusIcon.innerHTML = '<i class="fas fa-exclamation"></i>';
+            } else {
+                statusIcon.classList.add('status-alert');
+                statusIcon.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+            }
+
+            // Show save section
+            document.getElementById('saveSection').style.display = 'block';
+            
+            // Scroll to results
+            resultElement.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Save observation function
+        function saveObservation() {
+            if (!currentAnalysis) return;
+
+            // Get existing observations or create new array
+            let observations = JSON.parse(localStorage.getItem('dischargeObservations')) || [];
+
+            // Add new observation
+            observations.unshift(currentAnalysis);
+
+            // Limit to max observations
+            if (observations.length > MAX_OBSERVATIONS) {
+                observations = observations.slice(0, MAX_OBSERVATIONS);
+            }
+
+            // Save to localStorage
+            localStorage.setItem('dischargeObservations', JSON.stringify(observations));
+
+            // Show confirmation
+           const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+
+            // Reload observations
+            loadObservations();
+
+            // Clear form and reset
+            clearForm();
+        }
+
+        // Load observations function
+        function loadObservations() {
+            const observations = JSON.parse(localStorage.getItem('dischargeObservations')) || [];
+            const container = document.getElementById('savedObservations');
+            const noObsElement = document.getElementById('noObservations');
+
+            // Clear existing cards (except the "no observations" message)
+            const cards = container.querySelectorAll('.observation-card');
+            cards.forEach(card => card.remove());
+
+            if (observations.length === 0) {
+                noObsElement.style.display = 'block';
+                return;
+            }
+
+            noObsElement.style.display = 'none';
+
+            // Create cards for each observation
+            observations.forEach(obs => {
+                const card = document.createElement('div');
+                card.className = 'observation-card';
+
+                // Create header with date and cycle day
+                const header = document.createElement('div');
+                header.className = 'observation-header';
+                header.innerHTML = `
+                    <span class="observation-date">${obs.date}</span>
+                    <span>Cycle Day ${obs.cycleDay}</span>
+                `;
+                card.appendChild(header);
+
+                // Create details section
+                const details = document.createElement('div');
+                details.className = 'observation-details';
+
+                // Add consistency
+                const consistencyItem = document.createElement('div');
+                consistencyItem.className = 'detail-item';
+                consistencyItem.innerHTML = `
+                    <i class="fas fa-vial"></i>
+                    <span>${getConsistencyLabel(obs.consistency)}</span>
+                `;
+                details.appendChild(consistencyItem);
+
+                // Add color
+                const colorItem = document.createElement('div');
+                colorItem.className = 'detail-item';
+                colorItem.innerHTML = `
+                    <i class="fas fa-palette"></i>
+                    <span>${getColorLabel(obs.color)}</span>
+                `;
+                details.appendChild(colorItem);
+
+                // Add odor if present
+                if (obs.odor && obs.odor !== 'none') {
+                    const odorItem = document.createElement('div');
+                    odorItem.className = 'detail-item';
+                    odorItem.innerHTML = `
+                        <i class="fas fa-wind"></i>
+                        <span>${getOdorLabel(obs.odor)}</span>
+                    `;
+                    details.appendChild(odorItem);
+                }
+
+                card.appendChild(details);
+
+                // Add notes if present
+                if (obs.notes) {
+                    const notesItem = document.createElement('div');
+                    notesItem.className = 'detail-item';
+                    notesItem.style.flexBasis = '100%';
+                    notesItem.innerHTML = `
+                        <i class="fas fa-notes-medical"></i>
+                        <span>${obs.notes}</span>
+                    `;
+                    details.appendChild(notesItem);
+                }
+
+                // Add analysis
+                const analysis = getDischargeAnalysis(obs);
+                const analysisDiv = document.createElement('div');
+                analysisDiv.className = `insight-card insight-${analysis.status}`;
+                analysisDiv.innerHTML = `
+                    <div class="insight-title">
+                        <i class="fas ${analysis.status === 'normal' ? 'fa-check-circle' : 
+                                         analysis.status === 'warning' ? 'fa-exclamation-circle' : 
+                                         'fa-exclamation-triangle'}"></i>
+                        <span>${analysis.title}</span>
+                    </div>
+                    <p>${analysis.message}</p>
+                `;
+                card.appendChild(analysisDiv);
+
+                // Insert after the header
+                container.insertBefore(card, noObsElement.nextSibling);
+            });
+        }
+
+        // Clear form function
+        function clearForm() {
+            document.getElementById('cycleDay').value = '';
+            document.getElementById('cycleDay').classList.remove('auto-populated');
+            document.getElementById('consistency').value = '';
+            document.getElementById('odor').value = '';
+            document.getElementById('notes').value = '';
+            document.getElementById('selectedColor').value = '';
+            document.querySelectorAll('.color-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.getElementById('analysisResult').style.display = 'none';
+            currentAnalysis = null;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Helper functions to get display labels
+        function getConsistencyLabel(value) {
+            const labels = {
+                'dry': 'Dry/None',
+                'sticky': 'Sticky',
+                'creamy': 'Creamy',
+                'watery': 'Watery',
+                'eggwhite': 'Egg white',
+                'clumpy': 'Clumpy'
+            };
+            return labels[value] || value;
+        }
+
+        function getColorLabel(value) {
+            const labels = {
+                'clear': 'Clear',
+                'creamy': 'Creamy',
+                'milky': 'Milky white',
+                'pinkish': 'Pinkish',
+                'light-red': 'Light red',
+                'greenish': 'Greenish',
+                'blueish': 'Blueish',
+                'grayish': 'Grayish',
+                'yellowish': 'Yellowish',
+                'lavender': 'Lavender'
+            };
+            return labels[value] || value;
+        }
+
+        function getOdorLabel(value) {
+            const labels = {
+                'none': 'No odor',
+                'mild': 'Mild odor',
+                'strong': 'Strong odor',
+                'fishy': 'Fishy odor',
+                'yeasty': 'Yeasty odor'
+            };
+            return labels[value] || value;
+        }
+
+        // Analysis function
+       function getDischargeAnalysis(observation) {
+    const { consistency, color, odor, cycleDay, notes } = observation;
+    const cycleDayNum = parseInt(cycleDay);
+    const lowerNotes = notes ? notes.toLowerCase() : '';
+    const profile = JSON.parse(localStorage.getItem('userProfile')) || { cycleLength: 28 };
+    const logs = JSON.parse(localStorage.getItem('periodLogs')) || [];
+
+    // Determine cycle phase
+    function getCyclePhase(day) {
+        if (!logs.length) return 'unknown';
+        const ovulationDay = Math.floor(profile.cycleLength * 0.6);
+        if (day <= 5) return 'menstrual';
+        if (day <= ovulationDay - 3) return 'follicular';
+        if (day <= ovulationDay + 2) return 'ovulation';
+        if (day <= profile.cycleLength) return 'luteal';
+        return 'unknown';
+    }
+
+    const currentPhase = getCyclePhase(cycleDayNum);
+
+    // Infection detection
+    const hasInfectionIndicators = [
+        color.includes('green'),
+        color.includes('yellow') && odor !== 'none',
+        odor === 'fishy',
+        odor === 'strong',
+        lowerNotes.includes('itch'),
+        lowerNotes.includes('burn'),
+        lowerNotes.includes('pain'),
+        lowerNotes.includes('swelling'),
+        lowerNotes.includes('irritation')
+    ].filter(Boolean).length >= 2;
+
+    if (hasInfectionIndicators) {
+        return {
+            status: 'alert',
+            title: ' Possible Infection Alert',
+            message: 'Discharge with green/yellow tint, odor, or irritation may suggest an infection like bacterial vaginosis, yeast, or an STI. Please consult a gynecologist for proper evaluation.'
+        };
+    }
+
+    // Yeast Infection
+    if (
+        (consistency === 'clumpy' && color.includes('white')) ||
+        lowerNotes.includes('yeast') || lowerNotes.includes('cottage cheese')
+    ) {
+        return {
+            status: 'warning',
+            title: ' Signs of Yeast Infection',
+            message: 'Thick, clumpy, white discharge with itching may point to a yeast infection. OTC antifungals may help, but consult a doctor if it persists or it’s your first time.'
+        };
+    }
+
+    // Blood-related Discharge
+    if (color.includes('pink') || color.includes('red')) {
+        if (currentPhase === 'ovulation') {
+            return {
+                status: 'normal',
+                title: 'Ovulation Spotting',
+                message: 'Mild pink spotting during ovulation is normal and caused by hormonal shifts as the egg is released.'
+            };
+        }
+        if (currentPhase === 'luteal') {
+            return {
+                status: 'normal',
+                title: 'Premenstrual Spotting',
+                message: 'Light red or pink discharge before your period can be normal. Watch for changes if it becomes heavy or painful.'
+            };
+        }
+        return {
+            status: 'warning',
+            title: 'Unexpected Bleeding',
+            message: 'Spotting outside menstrual window could indicate hormonal imbalance or cervical irritation. Observe it and consult if it continues.'
+        };
+    }
+
+    // Brown discharge
+    if (color === 'brown' || color === 'dark-brown') {
+        if (currentPhase === 'menstrual' || cycleDayNum <= 7) {
+            return {
+                status: 'normal',
+                title: 'Old Blood Discharge',
+                message: 'Brown discharge early in cycle is usually old menstrual blood being expelled. This is common and typically harmless.'
+            };
+        }
+        return {
+            status: 'warning',
+            title: 'Unexpected Brown Discharge',
+            message: 'Brown discharge mid-cycle may indicate old blood or irregular shedding. Monitor for odor or discomfort.'
+        };
+    }
+
+    // Fertility Detection
+    if (consistency === 'eggwhite' && color === 'clear') {
+        return {
+            status: 'normal',
+            title: ' Peak Fertility Discharge',
+            message: 'Clear, stretchy discharge is a sign of ovulation. This is your most fertile phase.'
+        };
+    }
+
+    if (consistency === 'watery' && currentPhase === 'ovulation') {
+        return {
+            status: 'normal',
+            title: 'High Fertility Window',
+            message: 'Watery discharge during ovulation is normal and indicates your body is ready to conceive.'
+        };
+    }
+
+    // Normal creamy discharge
+    if (consistency === 'creamy') {
+        if (currentPhase === 'luteal') {
+            return {
+                status: 'normal',
+                title: 'Creamy Luteal Phase Discharge',
+                message: 'Post-ovulation creamy discharge is caused by rising progesterone and usually indicates low fertility.'
+            };
+        }
+        if (currentPhase === 'follicular') {
+            return {
+                status: 'normal',
+                title: 'Pre-ovulatory Creamy Mucus',
+                message: 'This may be the start of estrogen rising. It’s a transitional sign toward fertile days.'
+            };
+        }
+    }
+
+    // Dry Phase
+    if (consistency === 'dry' && (currentPhase === 'follicular' || currentPhase === 'luteal')) {
+        return {
+            status: 'normal',
+            title: 'Dry Mucus Phase',
+            message: 'It’s common to feel dry before and after ovulation. This often signals non-fertile days.'
+        };
+    }
+
+    // Sticky discharge
+    if (consistency === 'sticky') {
+        return {
+            status: 'normal',
+            title: 'Sticky Early Cycle Mucus',
+            message: 'Sticky or tacky discharge is common right after menstruation. It may feel thick or pasty and is generally not fertile.'
+        };
+    }
+
+    // Unknown or unclear cases
+    return {
+        status: 'normal',
+        title: 'Cycle-Based Discharge',
+        message: `Your discharge appears within the normal range for the ${currentPhase} phase. Continue tracking for patterns or changes.`
+    };
+
+        }
+    </script>
+    <script>
+  // Trigger fade-in when DOM is ready
+  window.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('fade-in');
+  });
+</script>
+</body>
+</html>

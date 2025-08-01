@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Floei</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fff5f8;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .auth-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+        }
+        .auth-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(243, 86, 123, 0.1);
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .btn-primary {
+            background-color: #f3567b;
+            border: none;
+            width: 100%;
+            padding: 10px;
+        }
+        .auth-footer {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+        }
+    </style>
+    <script>
+        import { auth, getUserDetails } from './auth.js';
+
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    const data = await getUserDetails(user.uid);
+    if (!data) {
+      window.location.href = "details.html"; // Onboarding not complete
+    } else {
+      window.location.href = "index.html"; // Go to main app
+    }
+  }
+});
+
+    </script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2 class="text-center mb-4">Create Account</h2>
+            
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <input type="email" class="form-control" id="signupEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="signupPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            
+            <div class="auth-footer">
+                Already have an account? <a href="login.html">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { checkAuthState, signUp } from './auth.js';
+        
+        // Initialize auth check
+        checkAuthState();
+        
+        // Handle form submission
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            
+            const result = await signUp(email, password);
+            
+            if (!result.success) {
+                document.getElementById('errorMessage').textContent = result.message;
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

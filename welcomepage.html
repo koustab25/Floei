@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Floei</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blush-pink: #FFB7C5;
+            --deep-pink: #FF6B8B;
+            --rose-gold: #E0BFB8;
+            --soft-white: #FFF9FB;
+            --dark-pink: #D23C77;
+            --text-color: #5A3D4D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-pink);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .floral-decor {
+            position: absolute;
+            color: var(--blush-pink);
+            opacity: 0.15;
+            z-index: 0;
+            font-size: 3rem;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floral-1 {
+            top: 15%;
+            left: 10%;
+            transform: rotate(-15deg);
+            animation-delay: 0.2s;
+        }
+        
+        .floral-2 {
+            bottom: 20%;
+            right: 10%;
+            transform: rotate(25deg);
+            animation-delay: 0.4s;
+        }
+        
+        .landing-container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            max-width: 300px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0px;
+        }
+        
+        .logo-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            position: relative;
+            animation: gentle-pulse 3s ease-in-out infinite;
+        }
+        
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 15px rgba(255, 107, 139, 0.2));
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--dark-pink);
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 0.5s forwards;
+            margin-top: -50px;
+            color: #ffffff;
+        }
+        
+        .loading-dots {
+            display: inline-flex;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 1s forwards;
+            
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--deep-pink);
+            border-radius: 50%;
+            margin: 0 4px;
+            animation: bounce 1.5s infinite ease-in-out;
+            
+        }
+        
+        .dot:nth-child(1) { animation-delay: 0s; }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        @keyframes gentle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <i class="floral-decor floral-1 fas fa-spa"></i>
+    <i class="floral-decor floral-2 fas fa-leaf"></i>
+    
+    <div class="landing-container">
+        <div class="logo-container">
+            <img src="assets/logo/logoWhiteMain-Photoroom.png" alt="Floei" class="logo">
+        </div>
+        <p class="subtitle">Your Personal cycle companion</p>
+        
+        <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check user status after animations complete
+            setTimeout(function() {
+                // Check if user has completed details (example check)
+                const userProfile = localStorage.getItem('userProfile');
+                const hasCompletedDetails = userProfile && JSON.parse(userProfile).cycleLength;
+                
+                // Redirect based on user status
+                if (hasCompletedDetails) {
+                    window.location.href = "index.html"; // Existing user
+                } else {
+                    window.location.href = "details.html"; // New user
+                }
+            }, 3000); // Wait 2 seconds before redirecting
+        });
+    </script>
+</body>
+</html>

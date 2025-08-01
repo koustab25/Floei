@@ -1,0 +1,319 @@
+:root {
+    --PrimaryColor: #f3567b;
+    --AccentColor: #caa8f5;
+    --LightPrimaryColor: #eeb7c9;
+    --DarkPrimaryColor: #b3003b;
+    --BackgroundLight: #fff5f8;
+    --Cards_Elements: #ffe3ed;
+    --Highlights: #b4f8c8;
+    --TextPrimary: #333333;
+    --TextSecondary: #5a5a5a;
+    --Danger: #ff7f7f;
+    --BorderRadius: 12px;
+    --BoxShadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --Transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.logo{
+    height: 100px;
+    width: 100px;
+    margin: -20px;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--BackgroundLight);
+    color: var(--TextPrimary);
+    font-family: 'Playfair Display', serif;
+}
+
+/* Settings Container */
+.settings-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.settings-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.settings-header h1 {
+    color: var(--DarkPrimaryColor);
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    font-weight: 550;
+}
+
+.settings-header p {
+    color: var(--TextSecondary);
+    font-size: 1rem;
+}
+
+/* Settings Cards */
+.settings-card {
+    background-color: white;
+    border-radius: var(--BorderRadius);
+    box-shadow: var(--BoxShadow);
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: var(--Cards_Elements);
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-header h2 {
+    font-size: 1.2rem;
+    color: var(--TextPrimary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header i {
+    color: var(--PrimaryColor);
+}
+
+/* Profile Section */
+.profile-info {
+    padding: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--TextPrimary);
+    margin-right: 10px;
+    min-width: 100px;
+}
+
+.info-value {
+    color: var(--TextSecondary);
+    flex: 1;
+}
+
+.btn-edit {
+    background-color: var(--PrimaryColor);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--BorderRadius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--Transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.btn-edit:hover {
+    background-color: var(--DarkPrimaryColor);
+}
+
+/* Cycle Settings */
+.cycle-settings {
+    padding: 20px;
+}
+
+.setting-item {
+    margin-bottom: 20px;
+}
+
+.setting-item label {
+    display: block;
+    font-weight: 500;
+    color: var(--TextPrimary);
+    margin-bottom: 8px;
+}
+
+.input-group {
+    display: flex;
+    max-width: 300px;
+}
+
+.input-group .form-control {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--BorderRadius) 0 0 var(--BorderRadius);
+    font-size: 1rem;
+}
+
+.input-group .input-group-text {
+    background-color: var(--Cards_Elements);
+    border: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0 var(--BorderRadius) var(--BorderRadius) 0;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-save {
+    background-color: var(--PrimaryColor);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--BorderRadius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--Transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.btn-save:hover {
+    background-color: var(--DarkPrimaryColor);
+}
+
+/* Notification Settings */
+.notification-settings {
+    padding: 20px;
+}
+
+.toggle-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: var(--Transition);
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: var(--Transition);
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--PrimaryColor);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Account Management */
+.danger-zone .card-header {
+    background-color: rgba(255, 127, 127, 0.1);
+}
+
+.account-management {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.btn-logout {
+    background-color: var(--TextSecondary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--BorderRadius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--Transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-logout:hover {
+    background-color: #444;
+}
+
+.btn-delete {
+    background-color: var(--Danger);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--BorderRadius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--Transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-delete:hover {
+    background-color: #d32f2f;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .settings-container {
+        padding: 0 15px;
+    }
+    
+    .input-group {
+        max-width: 100%;
+    }
+    
+    .account-management {
+        flex-direction: column;
+    }
+    
+    .btn-logout, .btn-delete {
+        width: 100%;
+        justify-content: center;
+    }
+    .settings-header h1{
+        font-size: 1.rem;
+    }
+    .settings-header p{
+        font-size: 0.8rem;
+    }
+}

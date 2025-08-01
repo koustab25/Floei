@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started | Floei</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="details.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="onboarding-container">
+        <!-- Progress Indicator -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="step-indicator">
+                <span class="step active">1</span>
+                <span class="step">2</span>
+                <span class="step">3</span>
+            </div>
+        </div>
+
+        <!-- Step 1: Basic Info -->
+        <div class="onboarding-step active" id="step1">
+            <div class="illustration">
+                <img style="width: 150px; margin: -50px;" src="assets/logo/logoPink-Photoroom.png" alt="" class="logo">
+            </div>
+            <h1>Welcome to Floei</h1>
+            <p class="subtext">Let's personalize your experience</p>
+            
+            <div class="form-group">
+                <label for="firstName">Your first name</label>
+                <input type="text" id="firstName" placeholder="e.g. Alexa" required>
+            </div>
+            <div style="display: flex; gap: 10px;" class="formWeightHeight">
+             <div class="form-group">
+                <label for="weight">Your Weight(Kg)</label>
+                <input type="number" id="weight" placeholder="e.g. 60" required>
+            </div>
+             <div class="form-group">
+                <label for="height">Your Height(Cm)</label>
+                <input type="number" id="height" placeholder="e.g. 170" required>
+            </div>
+            </div>
+            
+            <button class="btn primary" onclick="nextStep(1)">
+                Continue <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- Step 2: Period Dates -->
+        <div class="onboarding-step" id="step2">
+            <div class="illustration">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h1>Your last period</h1>
+            <p class="subtext">When was your most recent menstrual period?</p>
+            
+            <div class="date-grid">
+                <div class="form-group">
+                    <label for="lastPeriodStart">Start date</label>
+                    <input type="date" id="lastPeriodStart" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastPeriodEnd">End date</label>
+                    <input type="date" id="lastPeriodEnd" required>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn secondary" onclick="prevStep(2)">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <button class="btn primary" onclick="nextStep(2)">
+                    Continue <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: Cycle Length -->
+        <div class="onboarding-step" id="step3">
+            <div class="illustration">
+            <i class="fa-solid fa-arrows-spin"></i>
+            </div>
+            <h1>Your cycle length</h1>
+            <p class="subtext">Days between periods (usually 21-35 days)</p>
+            
+            <div class="cycle-input">
+                <input type="number" id="cycleLength" min="21" max="45" value="28" required>
+                <span>days</span>
+            </div>
+            
+            <button class="btn primary" id="completeSetup">
+                Complete Setup <i class="fas fa-check"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="details.js"></script>
+</body>
+</html>

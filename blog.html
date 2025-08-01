@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Floei Blog - Know Your Cycle</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="blog.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    
+<header class="blog-header">
+    <button onclick="window.location.href='index.html'" class="BackToHome"><i class="fa-solid fa-arrow-left"></i> Back To Home </button>
+  <div class="container">
+    <h1>Know Your Cycle</h1>
+    <p class="intro">Explore your cycle phase-by-phase. Learn what's happening inside your body and how to work <em>with</em> your cycle, not against it.</p>
+  </div>
+</header>
+
+<main class="container">
+  <div class="chart-wrapper">
+    <section class="cycle-chart">
+      <h2><i class="fas fa-chart-pie"></i> Menstrual Cycle Overview</h2>
+      <canvas id="cyclePieChart"></canvas>
+      <p class="chart-description">Typical 28-day cycle broken down by phase duration</p>
+    </section>
+
+    <section class="hormone-chart">
+      <h2><i class="fas fa-chart-line"></i> Hormone Fluctuations</h2>
+      <div class="chart-container">
+        <canvas id="hormoneLineChart"></canvas>
+      </div>
+      <p class="chart-description">Key hormone levels throughout the menstrual cycle</p>
+    </section>
+  </div>
+
+  <div class="blog-grid">
+    <a href="menstrual.html" class="blog-card menstrual">
+      <div class="card-icon"><i class="fa-solid fa-droplet"></i></div>
+      <h3>Menstrual Phase</h3>
+      <p>Everything you need to know about your period: rest, hormones, and inner reflection.</p>
+      <div class="card-cta">Learn more <i class="fas fa-arrow-right"></i></div>
+    </a>
+    
+    <a href="folecular.html" class="blog-card follicular">
+      <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
+      <h3>Follicular Phase</h3>
+      <p>The phase of renewal, rising estrogen, and renewed energy. Discover your inner spring.</p>
+      <div class="card-cta">Learn more <i class="fas fa-arrow-right"></i></div>
+    </a>
+    
+    <a href="ovulution.html" class="blog-card ovulation">
+      <div class="card-icon"><i class="fa-solid fa-egg"></i></div>
+      <h3>Ovulation Phase</h3>
+      <p>Fertility peaks, confidence rises. Learn how to harness your most magnetic energy.</p>
+      <div class="card-cta">Learn more <i class="fas fa-arrow-right"></i></div>
+    </a>
+    
+    <a href="lutual.html" class="blog-card luteal">
+      <div class="card-icon"><i class="fa-solid fa-moon"></i></div>
+      <h3>Luteal Phase</h3>
+      <p>Progesterone takes over. Learn to balance PMS, mood, and self-care before your period.</p>
+      <div class="card-cta">Learn more <i class="fas fa-arrow-right"></i></div>
+    </a>
+  </div>
+</main>
+
+<!-- Chart Scripts -->
+<script src="scripts.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+  // PIE Chart (Cycle Phases)
+  const ctx = document.getElementById('cyclePieChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Menstrual', 'Follicular', 'Ovulation', 'Luteal'],
+      datasets: [{
+        label: 'Cycle Phases',
+        data: [5, 7, 4, 12],
+        backgroundColor: ['#b3003b', '#ccaf07', '#aa1caf', '#0f7884'],
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            color: '#444',
+            font: { size: 14, weight: '500' }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: context => `${context.label}: ${context.parsed} days`
+          }
+        }
+      }
+    }
+  });
+
+  // LINE Chart (Hormones)
+  const hormoneCtx = document.getElementById('hormoneLineChart').getContext('2d');
+  new Chart(hormoneCtx, {
+    type: 'line',
+    data: {
+      labels: ['Day 1','Day 3','Day 5','Day 7','Day 10','Day 13','Day 14','Day 16','Day 20','Day 24','Day 28'],
+      datasets: [
+        {
+          label: 'Estrogen',
+          data: [20, 30, 40, 50, 70, 90, 100, 80, 60, 40, 30],
+          borderColor: '#ff4d6d',
+          backgroundColor: 'rgba(255, 77, 109, 0.1)',
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: 'Progesterone',
+          data: [10, 10, 15, 15, 20, 25, 30, 60, 80, 90, 70],
+          borderColor: '#8ecae6',
+          backgroundColor: 'rgba(142, 202, 230, 0.1)',
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: 'LH',
+          data: [5, 5, 5, 10, 15, 25, 80, 20, 10, 5, 5],
+          borderColor: '#ffd166',
+          backgroundColor: 'rgba(255, 209, 102, 0.1)',
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: 'FSH',
+          data: [10, 20, 30, 40, 35, 30, 50, 30, 20, 15, 10],
+          borderColor: '#80ed99',
+          backgroundColor: 'rgba(128, 237, 153, 0.1)',
+          tension: 0.4,
+          fill: true
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            font: { size: 13 },
+            color: '#444'
+          }
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false
+        }
+      },
+      interaction: {
+        mode: 'nearest',
+        axis: 'x',
+        intersect: false
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Hormone Level'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Day of Cycle'
+          }
+        }
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>

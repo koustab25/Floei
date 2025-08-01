@@ -1,0 +1,352 @@
+:root {
+  /* Color Palette */
+  --primary: #d62857;
+  --primary-light: #ffe6ec;
+  --primary-dark: #a52043;
+  --secondary: #8ecae6;
+  --accent: #ffb3c6;
+  --text: #333333;
+  --text-light: #5a5a5a;
+  --white: #ffffff;
+  --background: #fff8fa;
+  --card-bg: #ffffff;
+  --shadow: 0 4px 20px rgba(214, 40, 87, 0.15);
+  --border-radius: 16px;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.7;
+  padding: 0;
+  font-family: 'Playfair Display', serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header Styles */
+.article-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 2rem 0 3rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.header-content {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.phase-icon {
+  font-size: 1.5em;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.article-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* Back Link */
+.back-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.3s;
+}
+
+.back-link:hover {
+  opacity: 0.8;
+}
+
+/* Article Content */
+.article-content {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 3rem;
+  position: relative;
+  top: -40px;
+}
+
+.article-intro {
+  margin-bottom: 2.5rem;
+}
+
+.article-intro p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+/* Hero Image */
+.hero-image {
+  width: 100%;
+  max-width: 500px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+}
+
+/* Section Styles */
+.article-section {
+  margin-bottom: 3rem;
+}
+
+.article-section h2 {
+  font-size: 1.6rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Feature List */
+.feature-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.feature-list li {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  position: relative;
+  font-size: 1.05rem;
+}
+
+.feature-list li:before {
+  content: "•";
+  color: var(--primary);
+  font-size: 1.8rem;
+  position: absolute;
+  left: 0;
+  top: -3px;
+}
+
+/* Card Grid Layout */
+.card-grid, .nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.tip-card {
+  background: var(--primary-light);
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: transform 0.3s;
+}
+
+.tip-card:hover {
+  transform: translateY(-5px);
+}
+
+.tip-card i {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.tip-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: var(--primary-dark);
+}
+
+.tip-card p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+/* Food Cards */
+.food-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  color: white;
+}
+
+.food-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.food-card ul {
+  list-style: none;
+}
+
+.food-card li {
+  margin-bottom: 0.6rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.food-card li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+}
+
+.iron {
+  background: linear-gradient(135deg, #d62857, #e86c8b);
+}
+
+.magnesium {
+  background: linear-gradient(135deg, #8a5a44, #b38b6d);
+}
+
+.hydration {
+  background: linear-gradient(135deg, #0f7884, #3da2ad);
+}
+
+/* Blockquote */
+.inspiration-quote {
+  background: var(--primary-light);
+  padding: 2rem;
+  border-left: 5px solid var(--primary);
+  margin: 3rem 0;
+  font-style: italic;
+  color: var(--primary-dark);
+  border-radius: 12px;
+}
+
+.inspiration-quote p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.inspiration-quote footer {
+  font-style: normal;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* Next Steps */
+.next-steps {
+  text-align: center;
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: var(--border-radius);
+  margin-top: 3rem;
+}
+
+.next-steps h2 {
+  color: var(--text);
+}
+
+.cta-button {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  transition: all 0.3s;
+}
+
+.cta-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(214, 40, 87, 0.3);
+}
+
+/* Footer */
+.article-footer {
+  background: #f0f0f0;
+  padding: 2rem 0;
+  text-align: center;
+  color: var(--text-light);
+}
+
+.social-links {
+  margin-top: 1rem;
+}
+
+.social-links a {
+  color: var(--text-light);
+  margin: 0 10px;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+  color: var(--primary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .article-header h1 {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .article-content {
+    padding: 1.8rem;
+    top: -30px;
+  }
+  
+  .article-section h2 {
+    font-size: 1.4rem;
+  }
+  
+  .card-grid, .nutrition-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-header {
+    padding: 1.5rem 0 2.5rem;
+  }
+  
+  .article-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .article-content {
+    padding: 1.5rem;
+  }
+  
+  .hero-image {
+    max-width: 100%;
+  }
+  
+  .next-steps {
+    padding: 1.5rem;
+  }
+}

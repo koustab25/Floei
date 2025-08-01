@@ -1,0 +1,601 @@
+:root {
+  --primary-color: #f3567b;
+  --primary-dark: #d53d65;
+  --secondary-color: #6c5ce7;
+  --text-color: #333;
+  --light-text: #666;
+  --bg-color: #fff5f8;
+  --card-bg: #fff;
+  --border-color: #eee;
+  --success-color: #2ecc71;
+  --warning-color: #f39c12;
+  --danger-color: #e74c3c;
+  --shadow: 0 4px 12px rgba(243, 86, 123, 0.1);
+   --lutealdark:#0f7884;
+    --luteal:#579197;
+    --ovulutionDark:#aa1caf;
+    --ovulutionLight:#ac6eae;
+}
+
+[data-theme="dark"] {
+  --text-color: #f0f0f0;
+  --light-text: #bbb;
+  --bg-color: #1a1a2e;
+  --card-bg: #16213e;
+  --border-color: #2a2a4a;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.BackToHome{
+  padding: 0.5rem;
+  border: none;
+  color: white;
+  background-color:var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 500px;
+  text-align: center;
+  margin-right: auto;
+  margin-left: 20px;
+ margin-top: 20px;
+}
+.BackToHome:hover{
+  background-color: var(--primary-dark);
+  scale: 1.05;
+  transition: 3s fade ease-in;
+}
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+h1, h2, h3 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-top: 15px;
+}
+
+/* Tracker Card Style */
+.tracker-card {
+  background-color: var(--card-bg);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Form Elements */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.input-group {
+  flex: 1;
+  position: relative;
+}
+
+.suggestions {
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 0 0 8px 8px;
+  z-index: 10;
+  display: none;
+}
+
+.suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: rgba(243, 86, 123, 0.1);
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(243, 86, 123, 0.2);
+}
+
+/* Buttons */
+button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.primary-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.primary-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.secondary-btn {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  margin: 10px;
+}
+
+.secondary-btn:hover {
+  background-color: rgba(243, 86, 123, 0.1);
+}
+
+.water-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.water-btn:hover {
+  background-color: #2980b9;
+}
+
+#theme-toggle {
+  background: transparent;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  padding: 8px;
+}
+
+/* Tip text */
+.tip {
+  font-size: 13px;
+  color: var(--light-text);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+/* Items List */
+.items-list {
+  margin-bottom: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.food-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  margin: 5px 0;
+  background-color: rgba(243, 86, 123, 0.05);
+  border-radius: 8px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.food-item .delete-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--danger-color);
+  padding: 5px;
+}
+
+.food-item .delete-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Progress */
+.progress-wrapper {
+  margin-top: 20px;
+}
+
+.goal-setting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.water-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.water-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+progress {
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  appearance: none;
+  margin: 10px 0;
+}
+
+progress::-webkit-progress-bar {
+  background-color: var(--border-color);
+  border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+#water-progress::-webkit-progress-value {
+  background-color: #3498db;
+}
+
+.summary {
+  margin-top: 10px;
+  font-weight: 500;
+  color: var(--light-text);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Health Summary */
+#health-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-item.highlight {
+  padding: 15px;
+  background-color: rgba(197, 178, 182, 0.32);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.288);
+  border-radius: 8px;
+  margin: 5px 0;
+  width: 20rem;
+}
+
+.label {
+  font-weight: 500;
+}
+
+.value {
+  font-weight: 600;
+}
+
+.category {
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background-color: var(--light-text);
+  color: white;
+}
+
+.summary-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 10px 0;
+}
+
+/* Water History */
+.water-history {
+  margin-top: 20px;
+}
+
+.water-entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  padding: 25px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+  
+  .water-buttons {
+    flex-direction: column;
+  }
+  
+  .water-btn {
+    width: 100%;
+  }
+  .BackToHome{
+    font-size: 14px;
+    margin-left: 10px;
+  }
+  .summary-item.highlight{
+    width: fit-content;
+
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulse 0.5s ease;
+}
+/* For the container */
+#health-summary {
+  display: flex;
+  grid-template-columns: max-content auto; /* fixed label width */
+  gap: 0.75rem 1.5rem; /* row-gap column-gap */
+  align-items: center;
+}
+
+/* For the divider */
+.summary-divider {
+  grid-column: 1 / -1; /* spans full width */
+  height: 1px;
+  background: var(--border-color);
+  margin: 0.5rem 0;
+}
+
+/* For highlighted items */
+.highlight {
+  font-weight: 600;
+}
+
+/* For BMI category */
+.category {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8em;
+  margin-left: 0.5rem;
+}
+.items-list {
+  margin-bottom: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 5px; /* Prevents scrollbar overlap */
+}
+
+/* Scrollbar styling */
+.items-list::-webkit-scrollbar {
+  width: 6px;
+}
+.items-list::-webkit-scrollbar-thumb {
+  background-color: rgba(243, 86, 123, 0.2);
+  border-radius: 3px;
+}
+
+.food-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  margin: 8px 0;
+  background-color: rgba(243, 86, 123, 0.05);
+  border-radius: 8px;
+  animation: slideIn 0.3s ease;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(243, 86, 123, 0.1);
+}
+
+.food-item:hover {
+  background-color: rgba(243, 86, 123, 0.08);
+  transform: translateY(-1px);
+}
+
+.food-item > div {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Consistent spacing between elements */
+}
+
+.food-name {
+  font-weight: 500;
+  color: var(--primary-text);
+  min-width: 150px; /* Prevents name truncation */
+}
+
+.food-time {
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+  opacity: 0.8;
+}
+
+.food-calories {
+  font-weight: 600;
+  color: var(--accent-color);
+  min-width: 80px;
+  text-align: right;
+}
+
+.food-item .delete-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--danger-color);
+  padding: 5px 8px;
+  margin-left: 10px;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+}
+
+.food-item .delete-btn:hover {
+  transform: scale(1.2);
+  background-color: rgba(243, 86, 123, 0.1);
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0; 
+    transform: translateX(-20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+/* Empty state styling */
+.items-list .empty-state {
+  text-align: center;
+  padding: 20px;
+  color: var(--secondary-text);
+  font-style: italic;
+}
+.phase-suggestions {
+  margin-top: 30px;
+  padding: 25px;
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.phase-info h4 {
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+
+.suggestion-category {
+  margin-top: 20px;
+}
+
+.suggestion-category h5 {
+  color: var(--text-color);
+  margin-bottom: 8px;
+}
+
+.suggestion-list {
+  list-style: disc inside;
+  color: var(--light-text);
+  padding-left: 1rem;
+}
+
+.sugeestionsHead{
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+}
+.sectionWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

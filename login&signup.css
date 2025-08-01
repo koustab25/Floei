@@ -1,0 +1,103 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: Arial, sans-serif;
+    background-color:var(--BackgroundLight);
+    color: var(--TextPrimary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+:root {
+  --PrimaryColor: #f3567b;
+  --AccentColor: #caa8f5;
+  --lighPrimaryColor: #f8c8d8;
+    --DarkPrimaryColor: #b3003b;
+  --BackgroundLight:#fff5f8;
+  --Cards_Elements:#ffe3ed;
+--Highlights:#b4f8c8;
+--TextPrimary:#333333;
+--TextSecondary:#777777;
+--Danger:#ff7f7f;
+}
+.signup-container{
+display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--Cards_Elements);
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    
+}
+.logoAuth{
+    color: var(--PrimaryColor);
+   font-family: "Vibur", cursive;
+   display: flex;
+}
+.createAcc{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--TextPrimary);
+}
+.inputDivSignUp{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.input1{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--TextSecondary);
+    border-radius: 5px;
+    font-size: 16px;
+    color: var(--TextPrimary);
+    border: 0px;;
+}
+.sign_up_btn{
+    background-color: var(--PrimaryColor);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.sign_up_btn:hover{
+    background-color: var(--DarkPrimaryColor);
+        transition: background-color 0.3s ease;
+}
+.sign_up_btn:active{
+    background-color: var(--PrimaryColor);}
+
+.googleSignup{
+    background-color: rgb(10, 10, 10);
+    color: rgb(255, 255, 255);
+}
+.googleSignup:hover{
+    background-color: rgb(74, 71, 71);
+    transition: background-color 0.3s ease;
+}
+.googleSignup:active{
+    background-color: rgb(10, 10, 10);
+}
+.logo{
+    width: 150px;
+    height: 150px;
+    position: relative;
+    top: -50px;
+    margin-bottom: -90px;
+    margin-left: -20px;
+   
+}

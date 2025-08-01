@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floei | Food & Water Tracker</title>
+  <link rel="stylesheet" href="foodWater.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="styles.css">
+
+  
+</head>
+<body>
+ <button onclick="window.location.href='index.html'" class="BackToHome"><i class="fa-solid fa-arrow-left"></i> Back To Home </button>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-utensils"></i> Daily Intake Tracker</h1>
+      <button id="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+    </header>
+
+    <!-- 🍎 Food Intake Section -->
+    <section class="tracker-card">
+      <h2><i class="fas fa-apple-alt"></i> Food Intake</h2>
+      <div class="form-row">
+        <div class="input-group">
+          <input type="text" id="food-name" placeholder="Enter food name (e.g. Banana)" autocomplete="off">
+          <div id="food-suggestions" class="suggestions"></div>
+        </div>
+        <div class="input-group">
+          <input type="number" id="food-calories" placeholder="Calories (kcal)" min="0">
+        </div>
+        <button id="save-food-btn" class="primary-btn"><i class="fas fa-plus"></i> Add</button>
+      </div>
+      <div id="autofill-tip" class="tip"></div>
+      
+      <div id="food-items-container" class="items-list"></div>
+      
+      <div class="progress-wrapper">
+        <div class="goal-setting">
+          <label for="calorie-goal">Calorie Goal:</label>
+          <input type="number" id="calorie-goal" value="2000" min="500" max="5000">
+        </div>
+        <progress id="calorie-progress" value="0" max="1800"></progress>
+        <div id="calories-summary" class="summary"></div>
+      </div>
+    </section>
+
+    <!-- 💧 Water Intake Section -->
+    <section class="tracker-card">
+      <h2><i class="fas fa-tint"></i> Water Intake</h2>
+      <div class="water-controls">
+        <div class="goal-setting">
+          <label for="water-goal">Daily Goal (ml):</label>
+          <input type="number" id="water-goal" value="2000" min="500" max="5000">
+        </div>
+        <div class="water-buttons">
+          <button class="water-btn" data-amount="250"><i class="fa-solid fa-glass-water"></i>+250ml</button>
+          <button class="water-btn" data-amount="500"><i class="fa-solid fa-bottle-water"></i>+500ml</button>
+          <button class="water-btn" data-amount="1000"><i class="fa-solid fa-bottle-water"></i><i class="fa-solid fa-bottle-water"></i>+1L</button>
+        </div>
+      </div>
+      <progress id="water-progress" value="0" max="2000"></progress>
+      <div id="water-summary" class="summary"></div>
+      <div class="water-history">
+        <h3>Today's Intake</h3>
+        <div id="water-history-container"></div>
+      </div>
+    </section>
+
+    <!-- 🧘‍♀️ Health Summary -->
+    <section class="tracker-card">
+      <h2><i class="fas fa-heartbeat"></i> Health Summary</h2>
+      <div id="health-summary">
+        <div class="summary-item">
+          <span class="label">Height:</span>
+          <span id="summary-height" class="value">--</span> cm
+        </div>
+        <div class="summary-item">
+          <span class="label">Weight:</span>
+          <span id="summary-weight" class="value">--</span> kg
+        </div>
+        <div class="summary-item">
+          <span class="label">BMI:</span>
+          <span id="summary-bmi" class="value">--</span>
+          <span id="bmi-category" class="category"></span>
+        </div>
+        <div style="display: none;" class="summary-item">
+          <span class="label">Cycle Phase:</span>
+          <span id="summary-phase" class="value">--</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-item highlight">
+          <span class="label">Suggested Calories:</span>
+          <span id="suggested-calories" class="value">--</span> kcal
+        </div>
+        <div class="summary-item highlight">
+          <span class="label">Suggested Water:</span>
+          <span id="suggested-water" class="value">--</span> ml
+        </div>
+      </div>
+      <button id="edit-profile-btn" class="secondary-btn"><i class="fas fa-user-edit"></i> Edit Profile</button>
+    </section>
+
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Edit Your Profile</h2>
+        <form id="profile-form">
+          <div class="form-group">
+            <label for="height-input">Height (cm):</label>
+            <input type="number" id="height-input" min="100" max="250">
+          </div>
+          <div class="form-group">
+            <label for="weight-input">Weight (kg):</label>
+            <input type="number" id="weight-input" min="30" max="300">
+          </div>
+          <div class="form-group">
+            <label for="phase-select">Cycle Phase:</label>
+            <select id="phase-select">
+              <option value="Unknown">Not Specified</option>
+              <option value="Menstrual">Menstrual</option>
+              <option value="Follicular">Follicular</option>
+              <option value="Ovulation">Ovulation</option>
+              <option value="Luteal">Luteal</option>
+            </select>
+          </div>
+          <button type="submit" class="primary-btn">Save Profile</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="foodWater.js"></script>
+</script>
+<script>
+  // Trigger fade-in when DOM is ready
+  window.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('fade-in');
+  });
+</script>
+
+</body>
+</html>

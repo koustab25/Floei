@@ -1,0 +1,469 @@
+:root {
+  --PrimaryColor: #f3567b;
+  --AccentColor: #caa8f5;
+  --lightPrimaryColor: #eeb7c9;
+  --DarkPrimaryColor: #b3003b;
+  --BackgroundLight: #fff5f8;
+  --Cards_Elements: #ffe3ed;
+  --Highlights: #b4f8c8;
+  --TextPrimary: #333333;
+  --TextSecondary: #5a5a5a;
+  --Danger: #ff7f7f;
+  
+  
+  /* Cycle phase colors */
+  --menstrualColor: #f3567b;
+  --follicularColor: #ccaf07;
+  --OvulationColor: #aa1caf;
+  --LutealColor: #0f7884;
+  
+  /* New variables for enhanced design */
+  --cardShadow: 0 6px 20px rgba(243, 86, 123, 0.15);
+  --softTransition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --borderRadius: 16px;
+  --sectionGap: 2rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Playfair Display', serif;
+  background-color: var(--BackgroundLight);
+  color: var(--TextPrimary);
+  line-height: 1.6;
+  padding-bottom: 3rem;
+}
+
+/* Calendar Container */
+.calendar-container {
+  width: 100%;
+  max-width: 42rem;
+  margin: 2rem auto 0;
+  background: white;
+  border-radius: var(--borderRadius);
+  padding: 1.5rem;
+  box-shadow: var(--cardShadow);
+  position: relative;
+  overflow: hidden;
+  transition: var(--softTransition);
+}
+
+.calendar-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--PrimaryColor), var(--AccentColor));
+}
+
+/* Calendar Header */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.calendar-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--DarkPrimaryColor);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.calendar-header button {
+  background-color: var(--PrimaryColor);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--softTransition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(243, 86, 123, 0.3);
+}
+
+.calendar-header button:hover {
+  background-color: var(--DarkPrimaryColor);
+  transform: translateY(-1px);
+}
+
+/* Weekdays */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--TextSecondary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  background-color: white;
+  border-radius: 12px;
+  padding: 0.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--TextPrimary);
+  transition: var(--softTransition);
+  position: relative;
+  border: 1px solid rgba(243, 86, 123, 0.1);
+  cursor: pointer;
+}
+
+.calendar-day:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(243, 86, 123, 0.15);
+  z-index: 2;
+}
+
+.calendar-day.empty {
+  background-color: transparent;
+  border: none;
+  cursor: default;
+  box-shadow: none;
+}
+
+.calendar-day.empty:hover {
+  transform: none;
+}
+
+/* Today Highlight */
+.today {
+  border: 2px solid var(--PrimaryColor);
+  font-weight: 600;
+  color: var(--PrimaryColor);
+}
+
+/* Cycle Phase Styles */
+.menstrual {
+  background-color: var(--menstrualColor);
+  color: white;
+}
+
+.follicular {
+  background-color: var(--follicularColor);
+  color: white;
+}
+
+.ovulation {
+  background-color: var(--OvulationColor);
+  color: white;
+}
+
+.luteal {
+  background-color: var(--LutealColor);
+  color: white;
+}
+
+/* Calendar Legend */
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--TextPrimary);
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+}
+
+.calendar-legend .dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Daily Logs Section */
+.daily-logs-section {
+  margin: var(--sectionGap) auto 0;
+  padding: 1.5rem;
+  background: white;
+  border-radius: var(--borderRadius);
+  box-shadow: var(--cardShadow);
+  width: 100%;
+  max-width: 42rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.daily-logs-section h3 {
+  margin-bottom: 1.5rem;
+  color: var(--DarkPrimaryColor);
+  font-weight: 600;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.daily-logs-section h3 i {
+  color: var(--PrimaryColor);
+}
+
+.log-cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Custom scrollbar */
+.log-cards-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.log-cards-wrapper::-webkit-scrollbar-track {
+  background: rgba(243, 86, 123, 0.1);
+  border-radius: 3px;
+}
+
+.log-cards-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--PrimaryColor);
+  border-radius: 3px;
+}
+
+/* Log Card */
+.log-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-left: 4px solid var(--PrimaryColor);
+  transition: var(--softTransition);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.log-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(243, 86, 123, 0.15);
+}
+
+.log-card .log-date {
+  font-weight: 600;
+  color: var(--DarkPrimaryColor);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.log-card .log-date::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--PrimaryColor);
+  border-radius: 50%;
+}
+
+.log-card .log-mood,
+.log-card .log-energy,
+.log-card .log-symptoms {
+  font-size: 0.9rem;
+  color: var(--TextSecondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.log-card .log-mood i,
+.log-card .log-energy i,
+.log-card .log-symptoms i {
+  color: var(--PrimaryColor);
+  font-size: 1rem;
+}
+
+/* Symptom Indicators */
+.symptom-indicators {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.symptom-indicator {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(243, 86, 123, 0.1);
+  color: var(--PrimaryColor);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .calendar-container,
+  .daily-logs-section {
+    width: 95%;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  
+  .calendar-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .calendar-day {
+    font-size: 0.9rem;
+    padding: 0.25rem;
+  }
+  
+  .calendar-legend {
+    gap: 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-header button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .weekdays {
+    font-size: 0.8rem;
+  }
+  
+  .calendar-day {
+    font-size: 0.85rem;
+  }
+  
+  .daily-logs-section h3 {
+    font-size: 1.15rem;
+  }
+}
+
+/* Animation Enhancements */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calendar-container,
+.daily-logs-section {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Phase Icons in Calendar Days */
+.phase-icon {
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+  opacity: 0.9;
+}
+
+/* Empty State for Logs */
+.empty-logs {
+  text-align: center;
+  padding: 2rem;
+  color: var(--TextSecondary);
+  font-size: 0.95rem;
+}
+
+.empty-logs i {
+  font-size: 1.5rem;
+  color: var(--lightPrimaryColor);
+  margin-bottom: 1rem;
+  display: block;
+}
+.LogSympBtn{
+  background-color: var(--PrimaryColor);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 17rem;
+}
+.buttons{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 30px;
+  gap: 10px;
+  flex-direction: column;
+  margin-bottom: -20px;
+}
+.LogSympBtn:hover{
+  background-color: var(--DarkPrimaryColor);
+}
+.log-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  font-size: 0.95rem;
+}
+
+.log-card strong {
+  color: #f3567b;
+}
+
+.delete-log-btn {
+  background-color: #ffdddd;
+  border: none;
+  padding: 6px 12px;
+  color: #b3003b;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.8rem;
+  transition: 0.3s;
+}
+
+.delete-log-btn:hover {
+  background-color: #ffcaca;
+}

@@ -1,0 +1,250 @@
+:root {
+  /* Color Palette */
+  --primary: #f3567b;
+  --primary-light: #ffe3ed;
+  --primary-dark: #b3003b;
+  --follicular: #ccaf07;
+  --follicular-light: #f8f3d6;
+  --ovulation: #aa1caf;
+  --ovulation-light: #f5d6f5;
+  --luteal: #0f7884;
+  --luteal-light: #d6f0f3;
+  --text: #333333;
+  --text-light: #5a5a5a;
+  --white: #ffffff;
+  --background: #fff5f8;
+  --card-bg: #ffffff;
+  --shadow: 0 8px 24px rgba(206, 92, 123, 0.15);
+  --border-radius: 16px;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 0;
+  font-family: 'Playfair Display', serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header Styles */
+.blog-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 3rem 0;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.blog-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.intro {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Chart Layout */
+.chart-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.cycle-chart, .hormone-chart {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.cycle-chart:hover, .hormone-chart:hover {
+  transform: translateY(-5px);
+}
+
+.cycle-chart h2,
+.hormone-chart h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chart-description {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.chart-container {
+  position: relative;
+  height: 280px;
+  width: 100%;
+}
+
+/* Blog Cards Grid */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.blog-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.blog-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.blog-card p {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.card-cta {
+  color: var(--primary);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Phase-specific styles */
+.blog-card.menstrual {
+  border-top: 4px solid var(--primary-dark);
+}
+.blog-card.menstrual .card-icon {
+  color: var(--primary-dark);
+}
+
+.blog-card.follicular {
+  border-top: 4px solid var(--follicular);
+}
+.blog-card.follicular .card-icon {
+  color: var(--follicular);
+}
+
+.blog-card.ovulation {
+  border-top: 4px solid var(--ovulation);
+}
+.blog-card.ovulation .card-icon {
+  color: var(--ovulation);
+}
+
+.blog-card.luteal {
+  border-top: 4px solid var(--luteal);
+}
+.blog-card.luteal .card-icon {
+  color: var(--luteal);
+}
+.BackToHome{
+  padding: 0.5rem;
+  border: none;
+  color: white;
+  background-color:var(--primary);
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 500px;
+}
+.BackToHome:hover{
+  background-color: var(--primary-dark);
+  scale: 1.05;
+  transition: 3s fade ease-in;
+}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .blog-header {
+    padding: 2rem 0;
+  }
+  
+  .blog-header h1 {
+    font-size: 2rem;
+  }
+  
+  .intro {
+    font-size: 1rem;
+  }
+  
+  .chart-wrapper {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-container {
+    height: 250px;
+  }
+  
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .blog-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .cycle-chart, .hormone-chart {
+    padding: 1.2rem;
+  }
+  
+  .cycle-chart h2, .hormone-chart h2 {
+    font-size: 1.1rem;
+  }
+  
+  .chart-container {
+    height: 220px;
+  }
+}

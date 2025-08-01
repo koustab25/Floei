@@ -1,0 +1,192 @@
+/* 🌸 FLOEI NAVBAR STYLES */
+
+/* Root Colors */
+:root {
+  --pink: #f3567b;
+  --light-bg: #fff5f8;
+  --text: #b3003b;
+  --nav-shadow: 0 4px 12px rgba(243, 86, 123, 0.1);
+}
+/* Smooth fade-in animation */
+body {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* When page is ready */
+body.fade-in {
+  opacity: 1;
+}
+
+/* Navbar Styles */
+.floei-navbar {
+  background: var(--light-bg);
+  box-shadow: var(--nav-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  padding: 10px 20px;
+}
+
+/* Nav Container */
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Brand Logo */
+.brand-logo img {
+  height: 80px;
+  object-fit: contain;
+}
+/* Hamburger Icon */
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.menu-icon .bar {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.nav-links a.active {
+  background-color: #f3567b;
+  color: white;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-links a.active::after {
+  font-size: 0.7rem;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #f3567b;
+}
+.nav-links a.active {
+  background-color: #f3567b;
+  color: white;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-links a.active::after {/* down arrow */
+  font-size: 0.7rem;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #f3567b;
+ 
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-links a:hover {
+  background: #ffe3ed;
+}
+
+/* Responsive Toggle Hidden Input */
+#menu-toggle {
+  display: none;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  /* Shrink Navbar */
+  .floei-navbar {
+    padding: 6px 16px;
+  }
+
+  .brand-logo img {
+    height: 50px;
+  }
+
+  .menu-icon {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--light-bg);
+    padding: 0.5rem 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  #menu-toggle:checked ~ .nav-links {
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  /* Animate Hamburger to X */
+  #menu-toggle:checked + .menu-icon .bar:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+  }
+
+  #menu-toggle:checked + .menu-icon .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  #menu-toggle:checked + .menu-icon .bar:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+  }
+
+  .nav-links a {
+    justify-content: center;
+    padding: 8px 0;
+    font-size: 1rem;
+    width: 100%;
+  }
+}
+/* Footer */
+.footer {
+    background-color: var(--white);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 3rem;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer p {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floei - Period Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <script type="module">
+  import { auth, getUserDetails } from './auth.js';
+
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      const data = await getUserDetails(user.uid);
+      if (data && data.name) {
+        document.querySelector('.username').textContent = data.name;
+      }
+    }
+  });
+</script>
+
+ <header class="floei-navbar">
+  <div class="nav-container">
+    <a href="index.html" class="brand-logo">
+      <img src="assets/logo/logoMainPink-Photoroom.png" alt="Floei Logo" />
+    </a>
+
+    <input type="checkbox" id="menu-toggle" hidden />
+    <label for="menu-toggle" class="menu-icon">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </label>
+
+    <nav class="nav-links">
+      <a href="index.html"><i class="fa-solid fa-house "></i> Home</a>
+      <a href="log.html"><i class="fa-solid fa-droplet"></i> Log Your Period</a>
+      <a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Cycle Calendar</a>
+      <a href="Insights.html"><i class="fa-solid fa-chart-line"></i> Insights</a>
+      <a href="settings.html"><i class="fas fa-user-cog"></i> Settings</a>
+      <a href="about.html"><i class="fa-solid fa-circle-info"></i> About Floei</a>
+    </nav>
+  </div>
+</header>
+
+
+
+<!-- Prediction Confirmation Modal -->
+
+
+
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="greeting-container">
+                <h1 class="greeting">Hello, <span class="username"></span> <span class="emoji">😊</span></h1>
+                <p class="current-date">July 26</p>
+            </div>
+  <div class="waterFoodIntake">
+  <button class="intake-card water" onclick="location.href='foodWater.html'">
+    <i class="fas fa-glass-water"></i>
+    <div>
+      <span class="intake-label">Water</span>
+      <span class="intake-value" id="home-water-intake">-- L</span>
+    </div>
+  </button>
+
+  <button class="intake-card food" onclick="location.href='foodWater.html'">
+    <i class="fas fa-bowl-food"></i>
+    <div>
+      <span class="intake-label">Food</span>
+      <span class="intake-value" id="home-food-intake">-- kcal</span>
+    </div>
+  </button>
+</div>
+
+
+        </section>
+
+        <!-- Period Tracker Card -->
+        <div class="period-tracker-card" id="periodtrackercard">
+            <div class="tracker-content">
+              <!-- Add this inside period-tracker-card in index.html -->
+            <!-- Inside your tracker -->
+<div class="countdown-default">
+  <p class="tracker-label">Period in</p>
+  <h1 class="days-count"><span class="days-number">--</span> <span>days</span></h1>
+</div>
+
+<div class="countdown-menstrual" style="display: none;">
+  <p class="tracker-label">You're on</p>
+  <h1 class="days-count"><span class="menstrual-day">Day 1</span></h1>
+</div>
+
+
+                <button class="log-button" onclick="location.href='log.html'">
+                    <i class="fas fa-plus"></i> Log Period
+                </button>
+            </div>
+            <div class="wave-decoration"></div>
+        </div>
+        
+        <div class="period-end-banner" style="display: none; padding: 1rem; background-color: #ffe3ed; border-radius: 12px; margin-top: 1rem; text-align: center;">
+  <p style="margin-bottom: 1rem;">Has your period ended?</p>
+  <div style="display: flex; flex-direction: row; justify-content: center;align-items: center; flex-wrap: wrap; gap: 10px;">
+  <button class="btn btn-success btn-sm" id="markEndedBtn">Yes, it ended</button>
+  <button class="btn btn-outline-primary btn-sm" id="extendPeriodBtn">No, extend 1 day</button>
+  </div>
+  <p style="font-size: 0.9rem; margin-top: 10px;margin-bottom: -8px; color: rgba(0, 0, 0, 0.589);">Stays until period ends. </p>
+</div>
+
+
+
+        <!-- Cycle Info Section -->
+        <div class="cycle-info-section">
+            <div class="info-card">
+                <div class="icon">
+                    <i class="fas fa-calendar"></i>
+                </div>
+                <div>
+                    <p class="info-label">Predicted Next Period</p>
+                    <p class="info-value">No Data</p>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div>
+                    <p class="info-label">Last Logged Period</p>
+                    <p class="info-value"><span class="startDateDisply">No Data</span> - <span class="endDateDisply">No Data</span></p>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div>
+                    <p class="info-label">Avg cycle</p>
+                    <p class="info-value" id="avg">No Data</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase Section -->
+        <section class="phase-section">
+            <div class="phase-card">
+                <div class="phase-header">
+                    <div class="phase-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-weight: 100;">Your current Phase: <span class="phase-emoji">Unknown</span></h3>
+                        <p class="phase-description">Log your last period to get information.</p>
+                    </div>
+                </div>
+                
+                <button class="details-button">
+  <i class="fas fa-question-circle"></i> More Info
+</button>
+                
+
+        </section>
+
+        <!-- Action Cards -->
+        <div class="action-cards">
+            <div class="action-card" onclick="location.href='log-symptoms.html'">
+                <div class="card-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>Log Symptoms</h3>
+                <p>Get to know your body better. By logging symptoms, you will be able to spot patterns across multiple cycles.</p>
+                <div class="card-hover-effect"></div>
+            </div>
+              <div class="action-card insights" onclick="location.href='discharge.html'">
+                <div class="card-icon">
+                    <i class="fas fa-water"></i>
+                </div>
+                <h3> Understand Your Discharge</h3>
+                <p>Your cervical discharge changes with each cycle phase — it’s a natural sign of your menstrual and fertility health. Learn what’s normal for you and when to seek medical advice.</p>
+                <div class="card-hover-effect"></div>
+            </div>
+            <div class="action-card insights" onclick="location.href='Insights.html'">
+                <div class="card-icon">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <h3>Track patterns. Discover insights</h3>
+                <p>Understand how your mood, flow, and symptoms change across your cycle. View personalized trends and hormone patterns.</p>
+                <div class="card-hover-effect"></div>
+            </div>
+        </div>
+        <div class="action-cards">
+            <div class="action-card" onclick="location.href='blog.html'">
+                <div class="card-icon">
+                    <i class="fa-solid fa-arrows-spin"></i>
+                </div>
+                <h3>Know Your Cycle</h3>
+                <p>Your menstrual cycle is more than just periods. Each phase affects your mood, energy, skin, and productivity.
+    Understanding it helps you work with your body, not against it.</p>
+                <div class="card-hover-effect"></div>
+            </div>
+            
+            <div class="action-card insights" onclick="location.href='foodWater.html'">
+                <div class="card-icon">
+                    <i class="fa-solid fa-bowl-food"></i>
+                </div>
+                <h3>Nourish & Hydrate</h3>
+                <p>Track your daily water and food intake to support your cycle, energy, and well-being.  
+    Small mindful habits = big hormonal balance.</p>
+                <div class="card-hover-effect"></div>
+            </div>
+        
+        </div>
+
+        
+
+        <!-- Why Floei Section -->
+        <section class="why-floei">
+            <div class="why-container">
+                <div class="why-image">
+                    <img src="assets/whyfloei.png" alt="Floei App Preview">
+                </div>
+                <div class="why-content">
+                    <div class="btnText">
+                    <div class="textWhy">
+                    <h2>Why You Need Floei</h2>
+                    <p class="why-text">Floei is your personal period tracker, designed to help you understand your body better. With Floei, you can:</p>
+                    <ul class="why-list">
+                        <li><i class="fas fa-check"></i> Track your menstrual cycle with ease</li>
+                        <li><i class="fas fa-check"></i> Get personalized insights and predictions</li>
+                        <li><i class="fas fa-check"></i> Log symptoms and moods to identify patterns</li>
+                        <li><i class="fas fa-check"></i> Stay informed about your reproductive health</li>
+                    </ul>
+                    <p class="why-text">Floei is more than just a period tracker</p>
+                    </div>
+                    <button onclick="window.location.href='about.html'" class="KnowAboutFloei">Know More <i class="fa-solid fa-angles-right"></i> </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="backdrop"></div>
+        <section class="feedback-section">
+          
+  <div class="feedback-card">
+    <h2>🌸 We’d Love Your Feedback</h2>
+    <p>
+      Floei is still blooming — we’re in our early stages and actively growing 🌿. <br>
+      If you notice any issues, have ideas for new features, or just want to share your thoughts, we’re all ears!
+    </p>
+    <p class="email-line">
+      📩 Reach out to us anytime at:  
+      <a href="mailto:koustabchakraborty47@gmail.com">koustabchakraborty47@gmail.com</a>
+    </p>
+    <p class="thank-you">
+      Your voice helps us build better. 💖
+    </p>
+  </div>
+</section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 Floei. All rights reserved. Made with ❤️ by Koustab</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle phase details visibility
+        document.querySelector('.details-button').addEventListener('click', function() {
+            const details = document.querySelector('.phase-details');
+            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+    <script src="index.js"></script>
+    <!-- navbar working -->
+    <script>
+  const links = document.querySelectorAll('.nav-links a');
+  const currentPage = window.location.pathname.split("/").pop();
+
+  links.forEach(link => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+    }
+  });
+</script>
+<script>
+  // Trigger fade-in when DOM is ready
+  window.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('fade-in');
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const animateCount = (el, target, suffix = "", duration = 1000, decimals = 0) => {
+      const start = 0;
+      const startTime = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const current = start + (target - start) * progress;
+        el.textContent = `${current.toFixed(decimals)}${suffix}`;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    // ---- Water Intake ----
+    const waterData = JSON.parse(localStorage.getItem("waterIntake") || '{"entries":[]}');
+    const today = new Date().toISOString().split("T")[0];
+    const todayWater = waterData.entries.filter(e => e.timestamp.startsWith(today));
+    const totalWater = todayWater.reduce((sum, e) => sum + e.amount, 0);
+    const waterLitres = totalWater / 1000;
+    animateCount(document.getElementById("home-water-intake"), waterLitres, " L", 1200, 1);
+
+    // ---- Food Intake ----
+    const foodData = JSON.parse(localStorage.getItem("foodItems") || '[]');
+    const todayFood = foodData.filter(f => f.timestamp?.startsWith(today));
+    const totalKcal = todayFood.reduce((sum, f) => sum + f.kcal, 0);
+    animateCount(document.getElementById("home-food-intake"), totalKcal, " kcal", 1200, 0);
+  });
+</script>
+
+
+</body>
+</html>

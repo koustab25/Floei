@@ -1,0 +1,152 @@
+
+:root {
+  --primary-color: #ff6b9d;
+  --secondary-color: #6c63ff;
+  --text-color: #333;
+  --light-text: #666;
+  --background-light: #f8f8f8;
+  --white: #ffffff;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --border-radius: 16px;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 3rem;
+}
+
+/* Base Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-light);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.late-period-container {
+  padding: var(--spacing-md);
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.late-period-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+/* Icon Styles */
+.icon-container {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Typography */
+.late-period-card h1 {
+  font-size: 1.8rem;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+}
+
+.late-days {
+  font-size: 1.5rem;
+  margin: var(--spacing-sm) 0;
+}
+
+.late-days span {
+  font-weight: 700;
+  color: var(--primary-color);
+  font-size: 2rem;
+}
+
+.info-text {
+  color: var(--light-text);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Button Styles */
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn.primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn.secondary {
+  background-color: var(--background-light);
+  color: var(--text-color);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tips Section */
+.tips-section {
+  text-align: left;
+  background-color: var(--background-light);
+  padding: var(--spacing-sm);
+  border-radius: 8px;
+}
+
+.tips-section h3 {
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.tips-section ul {
+  padding-left: 1.5rem;
+  color: var(--light-text);
+  margin: 0.5rem 0;
+}
+
+.tips-section li {
+  margin-bottom: 0.3rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .late-period-container {
+    padding: var(--spacing-sm);
+  }
+  
+  .late-period-card {
+    padding: var(--spacing-md);
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

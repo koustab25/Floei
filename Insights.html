@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights & Trends | Floei</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="insights.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="floei-navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo/logoMainPink-Photoroom.png" alt="Floei Logo" />
+      </a>
+
+      <input type="checkbox" id="menu-toggle" hidden />
+      <label for="menu-toggle" class="menu-icon">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </label>
+
+      <nav class="nav-links">
+        <a style="color: #b3003b;" href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a style="color: #b3003b;" href="log.html"><i class="fa-solid fa-droplet"></i> Log Your Period</a>
+        <a style="color: #b3003b;" href="calendar.html"><i class="fa-solid fa-calendar-days"></i> Cycle Calendar</a>
+        <a style="color:#ffffff;" href="Insights.html"><i class="fa-solid fa-chart-line"></i> Insights</a>
+        <a style="color: #b3003b;" href="settings.html"><i class="fas fa-user-cog"></i> Settings</a>
+        <a style="color: #b3003b;" href="about.html"><i class="fa-solid fa-circle-info"></i> About Floei</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="insights-container">
+    <div class="page-header">
+      <h1>Insights & Trends</h1>
+      <p>Discover patterns in your menstrual cycle, symptoms, and moods to better understand your body.</p>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-overview">
+      <div class="stat-card">
+        <div style="color:  #b3003cd3;font-weight: 600;" class="stat-title"><i class="fas fa-calendar-alt"></i> Average Cycle Length</div>
+        <div style="font-size: 1.5rem;" class="stat-value" id="avgCycleLength">___<span>days</span></div>
+        <div class="stat-change" id="cycleMessage">Loading data...</div>
+      </div>
+      <div class="stat-card">
+        <div style="color:  #b3003cd3;font-weight: 600;" class="stat-title"><i class="fas fa-tint"></i> Average Period Length</div>
+        <div style="font-size: 1.5rem;" class="stat-value" id="avgPeriodLength">-- <span>days</span></div>
+        <div class="stat-change" id="lastPeriodDuration">Loading data...</div>
+      </div>
+      <div class="stat-card">
+        <div style="color:  #b3003cd3;font-weight: 600;" class="stat-title"><i class="fas fa-heartbeat"></i> Most Common Symptom</div>
+        <div style="font-size: 1.5rem;" class="stat-value" id="symptomsSection">--</div>
+        <div class="stat-change" id="symptomCountDisplay">--</div>
+      </div>
+      <div class="stat-card">
+        <div style="color:  #b3003cd3;font-weight: 600;" class="stat-title"><i class="fas fa-egg"></i> Fertility Window</div>
+        <div style="font-size: 1.5rem;" class="stat-value" id="fertileWindowDisplay">--</div>
+        <div class="stat-change" id="fertileWindowSubText">--</div>
+      </div>
+    </div>
+
+    <!-- Cycle Length Chart -->
+    <div class="charts-section">
+      <div class="chart-container">
+        <div class="chart-header">
+          <h2><i class="fas fa-ruler-horizontal"></i> Cycle Length History</h2>
+          <div class="time-filter">
+            <button class="active" data-months="3">3M</button>
+            <button data-months="6">6M</button>
+            <button data-months="12">12M</button>
+            <button data-months="0">All</button>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="cycleLengthChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Symptoms Chart -->
+      <div class="chart-container">
+        <div class="chart-header">
+          <h2><i class="fas fa-heartbeat"></i> Symptom Frequency</h2>
+          <div class="time-filter">
+            <button class="active" data-months="3">3M</button>
+            <button data-months="6">6M</button>
+            <button data-months="12">12M</button>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="symptomsChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Common Symptoms -->
+    <div class="symptoms-section">
+      <h2><i class="fas fa-notes-medical"></i> Your Most Common Symptoms</h2>
+      <p>These are the symptoms you've reported most frequently.</p>
+      <div class="symptoms-grid" id="symptomsGrid">
+        <!-- Will be populated by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Cycle History -->
+    <div class="cycle-history">
+      <h2><i class="fas fa-history"></i> Cycle History</h2>
+      <p>Your recorded menstrual cycles over time.</p>
+      <table class="cycle-table">
+        <thead>
+          <tr>
+            <th>Start Date</th>
+            <th>Cycle Length</th>
+            <th>Period Days</th>
+            <th>Phase</th>
+            <th>Symptoms</th>
+          </tr>
+        </thead>
+        <tbody id="cycleHistoryBody">
+          <!-- Will be populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="insights.js"></script>
+  <script>
+    // Navbar active link highlighting
+    const links = document.querySelectorAll('.nav-links a');
+    const currentPage = window.location.pathname.split("/").pop();
+    links.forEach(link => {
+      if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+      }
+    });
+
+    // Page fade-in effect
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('fade-in');
+    });
+  </script>
+</body>
+</html>
